@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="../static/style.css" />
+        <title>Home</title>
+    </head>
+    <body style="text-align: center;">
+        <div class="container">
+            <h1>Welcome</h1>
+            <br>
+            <p>Please enter the following fields if you do not have an account<p>
+            <p>Click "Register" when you have entered all the required information</p>
+            <p>Please remember your username and password as you will be asked to login after clicking "Register"</p>
+            {% if message %}
+            <p class="message" >{{ message | safe }}</p>
+            {% endif %}
+            <br>
+            <form action="/submit" method="POST">
+                Username:
+                <input  name="username" placeholder="Enter your username"/>
+                <br><br>
+                Password:
+                <input type="password" name="password" placeholder="Enter your password"/>
+                <br><br>
+                Confirm Password:
+                <input type="password" name="con_password" placeholder="Confirm Password"/>
+                <br><br>
+                <form action="/signin" method="POST">
+                    <input type="submit" value="Register" class="button" />
+                </form>
+            </form>
+            <br>
+            <form action="/" method="POST, GET">
+                <input type="submit" value="Home" class="button" />
+            </form>
+        </div>
+    </body>
+</html>
