@@ -39,6 +39,24 @@ zoomOffset: -1,
 accessToken: 'pk.eyJ1Ijoic2hhYWRlbnNzIiwiYSI6ImNrem0wbG41YjJkc3Qyd24yeGl2MTlkdXYifQ.6QUloRYZssJlCCzbwsXmgQ'
 }).addTo(map);
 
+axios.get(`https://api.weather.gc.ca/collections/climate-hourly/items?f=json&lang=en-CA&skipGeometry=false`)
+.then(response =>{
+    //var markers = L.markerClusterGroup();
+    //var oms = new OverlappingMarkerSpiderfier(map, keepSpiderfied=true);
+    var popup = new L.Popup();
+    const stations = response.data.features;
+    console.log(`GET list stations`, stations);
+    for(let i=0; i<stations.length-1;i++){
+        var marker = L.marker([stations[i].geometry.coordinates[1], stations[i].geometry.coordinates[0]]);
+        marker.bindPopup(`<b>hourly temp: </b>${stations[i].properties.TEMP}<br><b>historical temp: </b>`);
+        //oms.addMarker(marker);
+        //markers.addLayer(marker);
+        map.addLayer(marker);
+    }
+})
+.catch(error => console.error(error));
+					
+//map.addLayer(markers);
 </script>
 
 
