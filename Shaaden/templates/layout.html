@@ -6,6 +6,18 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='sassy.css') }}">
 		
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+		integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+		crossorigin=""/>
+		
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+		crossorigin=""></script>
+		
+		<style>
+		#map { height: 700px; }
+		</style>
+	
 
 		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #f2f5f7;">
 			<div class="container-fluid">
@@ -23,6 +35,8 @@
 			  </div>
 			</div>
 		  </nav>
+
+
 	</head>
 
 	
