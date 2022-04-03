@@ -44,19 +44,25 @@ axios.get(`https://api.weather.gc.ca/collections/climate-stations/items?f=json&l
     //var markers = L.markerClusterGroup();
     //var oms = new OverlappingMarkerSpiderfier(map, keepSpiderfied=true);
     var popup = new L.Popup();
-    const stations = response.data.features;
+    let stations = response.data.features;
     console.log(`GET list stations`, stations);
     for(let i=0; i<stations.length-1;i++){
-        thisstation=stations[i].properties.CLIMATE_IDENTIFIER;
-        var marker = L.marker([stations[i].geometry.coordinates[1], stations[i].geometry.coordinates[0]]);
-        axios.get(`https://api.weather.gc.ca/collections/climate-hourly/items?f=json&lang=en-CA&skipGeometry=false&CLIMATE_IDENTIFIER=${thisstation}`)
+        let thisstation=stations[i].properties.CLIMATE_IDENTIFIER;
+        let marker = L.marker([stations[i].geometry.coordinates[1], stations[i].geometry.coordinates[0]]);
+        axios.get(`https://api.weather.gc.ca/collections/climate-hourly/items?f=json&lang=en-CA&skipGeometry=false&datetime=2022-04-02%2000%3A00%3A00%2F..&CLIMATE_IDENTIFIER=${thisstation}`)
         .then(response =>{
-            station=response.data.features;
-            if (station != []) {
-                marker.bindPopup(`<b>hourly temp: </b>${station[i].properties.TEMP}<br><b>historical temp: </b>`);
+            let station=response.data.features;
+            if (station.length > 0) {
+                marker.bindPopup(`<b>hourly temp: </b>${station[station.length-1].properties.TEMP}<br><b>local date:</b> ${station[station.length-1].properties.LOCAL_DATE}`);
                 //oms.addMarker(marker);
                 //markers.addLayer(marker);
                 map.addLayer(marker);
+            } else {
+                // add marker but no temp found...
+                //marker.bindPopup(`<b>hourly temp: </b>${"hello"}<br>`);
+                //oms.addMarker(marker);
+                //markers.addLayer(marker);
+                //map.addLayer(marker);
             }
         })
         .catch(error => console.error(error));
