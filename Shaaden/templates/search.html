@@ -63,6 +63,19 @@ axios.get(`https://api.weather.gc.ca/collections/climate-stations/items?f=json&l
                 //oms.addMarker(marker);
                 //markers.addLayer(marker);
                 //map.addLayer(marker);
+
+                //daily
+                axios.get(`https://api.weather.gc.ca/collections/climate-daily/items?f=json&lang=en-CA&skipGeometry=false&CLIMATE_IDENTIFIER=${thisstation}&LOCAL_MONTH=04&LOCAL_YEAR=2022`)
+                .then(response =>{
+                    let Dstation=response.data.features;
+                    marker.bindPopup(`<b>daily temp: </b>${Dstation[Dstation.length-1].properties.MEAN_TEMPERATURE}<br><b>local date:</b> ${Dstation[Dstation.length-1].properties.LOCAL_DATE}`);
+                    //oms.addMarker(marker);
+                  //markers.addLayer(marker);
+                    map.addLayer(marker);
+
+
+                })
+                .catch(error => console.error(error));
             }
         })
         .catch(error => console.error(error));
