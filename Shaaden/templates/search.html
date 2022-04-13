@@ -54,12 +54,19 @@ axios.get(`https://api.weather.gc.ca/collections/climate-stations/items?f=json&l
         .then(response =>{
             let station=response.data.features;
             if (station.length > 0) {
-                //hourly data for the specific station rn
-                marker.bindPopup(`<b>hourly temp: </b>${station[station.length-1].properties.TEMP}<br><b>local date:</b> ${station[station.length-1].properties.LOCAL_DATE}`);
-                //oms.addMarker(marker);
-                //markers.addLayer(marker);
-                map.addLayer(marker);
-            } else {
+                axios.get(`https://api.weather.gc.ca/collections/climate-normals/items?f=json&lang=en-CA&limit=10&skipGeometry=false&CLIMATE_IDENTIFIER=${thisstation}`)
+                .then(response => {
+                     let station2 = response.data.features;
+                     //hourly data for the specific station rn
+                     marker.bindPopup(`<b>hourly temp: </b>${station[station.length - 1].properties.TEMP}<br><b>local date:</b> ${station[station.length - 1].properties.LOCAL_DATE}<br><b>Hist. Value:</b> ${station2[station2.length - 1].properties.VALUE}`); //station2 - 1 returns 3rd
+                     //oms.addMarker(marker);
+                     //markers.addLayer(marker);
+                     map.addLayer(marker);
+                })
+                .catch(error => console.error(error));
+
+            }
+            else {
                 // add marker but no temp found...
                 //marker.bindPopup(`<b>hourly temp: </b>${"hello"}<br>`);
                 //oms.addMarker(marker);
