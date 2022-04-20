@@ -40,9 +40,53 @@
 		<style>
 		#map { height: 700px; }
 		body { margin:0; padding:0; display: flex; flex-direction: column; text-align: center; align-content: center;}
-		#map1 { margin:auto; width: 500px; height: 300px; }
 		</style>
-	
+		
+		<script type="text/javascript">
+			function getPosition() {
+				return new Promise((res, rej) => {
+					navigator.geolocation.getCurrentPosition(res, rej);
+				});
+			}
+			
+			function main() {
+				getPosition().then(resp => {
+					const lat = resp.coords.latitude;
+					const lon = resp.coords.longitude;
+					console.log(lat, lon)
+					
+					var map = L.map('map').setView([lat, lon], 15);
+			
+					L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+						attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+					}).addTo(map);
+			
+					var geocodeService = L.esri.Geocoding.geocodeService()
+					geocodeService.reverse()
+						.latlng([lat, lon])
+						.run(function (error, result) {
+							if (error) {
+							return;
+						}
+						const myLoc = document.getElementById("myLoc");
+						myLoc.textContent = result.address.Match_addr
+						L.marker(result.latlng).addTo(map);
+					});
+			
+					// map.on('click', function (e) {
+					//     geocodeService.reverse().latlng(e.latlng).run(function (error, result) {
+					//     console.log(e.latlng)
+					//         if (error) {
+					//         return;
+					//     }
+					//     L.marker(result.latlng).addTo(map).bindPopup(result.address.Match_addr).openPopup();
+					//     });
+					// });
+				});
+			}
+			
+			main();
+		</script>
 
 		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #f2f5f7;">
 			<div class="container-fluid">
@@ -59,9 +103,7 @@
 				</div>
 			  </div>
 			</div>
-		  </nav>
-
-
+		</nav>
 	</head>
 
 	
