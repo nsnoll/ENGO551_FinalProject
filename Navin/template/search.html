@@ -16,6 +16,15 @@
 </br>
 
 <div class="myDiv">
+        <div style="text-align:center">
+            <form action="{{url_for('locate')}}" method="post">
+                <button>Locate Me</button>
+            </form>
+        </div>
+    </div>
+<br>
+
+<div class="myDiv">
     <div style="text-align:center">
 <form action="{{ url_for('results')}}" method="post">
     <input type="text" name="isbn" placeholder="ISBN">
