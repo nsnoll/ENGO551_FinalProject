@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+{{message}}
+{% endblock %}
+
+{% block body %}
+<div class="myDiv">
+	<form action="{{ url_for('search')}}" method="post">
+		<input type="text" name="username" placeholder="Enter Your Username">
+		<input type="text" name="password" placeholder="Enter Your Password">
+		<button> Log in </button>
+	</form>
+</div>
+
+{% endblock %}
