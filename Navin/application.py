@@ -80,10 +80,7 @@ def search():
             message="Please log in first."
             return render_template("message.html",message=message)
         else:
-            res=requests.get("https://api.weather.gc.ca/collections/climate-stations/items?f=json&lang=en-CA&limit=10&properties=LATITUDE,LONGITUDE")
-            data=res.json()
-            long=data["features"][0]["geometry"]["coordinates"][0]
-            message= long
+            message= "Welcome, "
             return render_template("search.html", username=session["username"], message=message)
 
     
