@@ -3,7 +3,7 @@
 ENGO 551 Final Project
 
 # Instructions
-In a terminal window, navigate to your directory for this project and copy-paste the following commands:
+Download the contents and in a terminal window, navigate to your directory for this project and copy-paste the following commands:
 1. pip3 install -r requirements.txt 
 2. set FLASK_APP=application.py
 3. set FLASK_DEBUG=1
