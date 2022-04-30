@@ -11,7 +11,7 @@ In a terminal window, navigate to your directory for this project and copy-paste
 5. flask run or python -m flask run 
 
 # Report
-In this project, you can view our application for the requirements of the final project in ENGO 551.
+In this project, you can view our application for the final project in ENGO 551.
 
 # Presentation Video
 https://youtu.be/306PEyGWFv4
