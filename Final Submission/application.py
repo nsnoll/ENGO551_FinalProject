@@ -122,3 +122,11 @@ def search():
 @app.route("/locate", methods=["POST"])
 def locate():
     return render_template("locate.html")
+
+@app.route("/results", methods=["POST"])
+def results():
+        if int(results.rowcount) == 0:
+            message="No results available."
+            return render_template("message.html", message=message)
+        else:
+            return render_template("results.html", results=results)
